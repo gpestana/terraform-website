@@ -6,10 +6,19 @@
       </li>
       <hr/>
       <li<%= sidebar_current("docs-extend-testing") %>>
-        <a href="/docs/extend/testing/index.html">Testing</a>
+        <a class="back" href="/docs/extend/testing/index.html">Testing</a>
         <ul class="nav">
+
           <li<%= sidebar_current("docs-extend-testing-acceptance") %>>
             <a href="/docs/extend/testing/acceptance-testing.html">Acceptance Tests</a>
+              <ul class="nav">
+                <li<%= sidebar_current("docs-extend-testing-acceptance-testcase") %>>
+                  <a href="/docs/extend/testing/acceptance-tests/testcase.html">Part 1: Test Cases</a>
+                </li>
+                <li<%= sidebar_current("docs-extend-testing-acceptance-teststep") %>>
+                  <a href="/docs/extend/testing/acceptance-tests/teststep.html">Part 2: Test Steps</a>
+                </li>
+              </ul>
           </li>
           <li<%= sidebar_current("docs-extend-testing-unit") %>>
             <a href="/docs/extend/testing/unit-testing.html">Unit Testing</a>
