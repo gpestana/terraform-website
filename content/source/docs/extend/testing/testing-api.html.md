@@ -1,5 +1,5 @@
 ---
-layout: "extend"
+layout: "extend-testing"
 page_title: "Extending Terraform - Testing API"
 sidebar_current: "docs-extend-testing-api"
 description: |-

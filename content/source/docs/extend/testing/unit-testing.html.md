@@ -1,5 +1,5 @@
 ---
-layout: "extend"
+layout: "extend-testing"
 page_title: "Extending Terraform - Acceptance Testing"
 sidebar_current: "docs-extend-testing-unit"
 description: |-

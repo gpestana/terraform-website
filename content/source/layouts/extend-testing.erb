@@ -1,0 +1,37 @@
+<% wrap_layout :inner do %>
+  <% content_for :sidebar do %>
+    <ul class="nav docs-sidenav">
+      <li<%= sidebar_current("docs-extend-home") %>>
+        <a class="back" href="/docs/extend/index.html">Extending Terraform</a>
+      </li>
+      <hr/>
+      <li<%= sidebar_current("docs-extend-testing") %>>
+        <a href="/docs/extend/testing/index.html">Testing</a>
+        <ul class="nav">
+          <li<%= sidebar_current("docs-extend-testing-acceptance") %>>
+            <a href="/docs/extend/testing/acceptance-testing.html">Acceptance Tests</a>
+          </li>
+          <li<%= sidebar_current("docs-extend-testing-unit") %>>
+            <a href="/docs/extend/testing/unit-testing.html">Unit Testing</a>
+          </li>
+          <li<%= sidebar_current("docs-extend-testing-api") %>>
+            <a href="/docs/extend/testing/testing-api.html">Test API</a>
+          </li>
+          <li<%= sidebar_current("docs-extend-testing-patterns") %>>
+            <a href="/docs/extend/testing/testing-patterns.html">Resource Test Patterns</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+      <li<%= sidebar_current("docs-extend-internals") %>>
+        <a class="back" href="/docs/internals/index.html">Terraform Internals</a>
+      </li>
+      <li<%= sidebar_current("docs-extend-provider-dev-program") %>>
+        <a class="back" href="/guides/terraform-provider-development-program.html">Terraform Provider Development Program</a>
+      </li>
+    </ul>
+  <% end %>
+
+  <%= yield %>
+<% end %>
