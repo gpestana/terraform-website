@@ -7,4 +7,4 @@ description: |-
   to extend Terraform's core offering.
 ---
 
-# Acceptance Tests Part 1: TestCase
+# Acceptance Testing Part 1: TestCase

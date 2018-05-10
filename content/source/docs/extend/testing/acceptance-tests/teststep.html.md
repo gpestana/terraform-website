@@ -7,4 +7,4 @@ description: |-
   to extend Terraform's core offering.
 ---
 
-# Acceptance Tests Part 2: TestStep
+# Acceptance Testing Part 2: TestStep
