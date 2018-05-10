@@ -25,7 +25,7 @@ to testing, with both acceptance tests and unit tests being placed in a files
 that matches the file under test, with an added `_test.go` suffix. Here’s an
 example file structure:
 
-``` 
+```
 terraform-plugin-example/ 
 ├── provider.go 
 ├── provider_test.go 
@@ -38,7 +38,9 @@ To create an acceptance test in the example `resource_example_compute_test.go`
 file, the function name must begin with `TestAccXxx`, and have the following
 signature:
 
-    func TestAccXxx(*testing.T)
+```go
+func TestAccXxx(*testing.T)
+```
 
 ## Running Acceptance Tests
 
@@ -46,7 +48,9 @@ The easiest way to run acceptance tests is to use the built in `make` step
 `testacc`, however, Terraform must be explicitly authorized to run acceptance
 tests with the environment variable `TF_ACC`. Example:
 
-    $ TF_ACC=true make testacc 
+```shell
+$ TF_ACC=true make testacc 
+```
 
 **It’s important to reiterate that acceptance tests create actual resources**,
 with possible expenses incurred, and are the responsibility of the user running
