@@ -263,7 +263,7 @@ two steps, to verify the resource can be created and subsequently updated,
 depending on the properties of the resource. In general, simply create/destroy
 tests will only need one step. 
 
-`TestStep`s are covered in detail in [Part 2](/docs/extend/testing/acceptance-testing/part2.html) of this section.
+`TestStep`s are covered in detail in [Part 2](/docs/extend/testing/acceptance-tests/teststep.html) of this section.
 
 **Example usage:**
 
