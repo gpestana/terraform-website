@@ -88,7 +88,7 @@ invoke the `t.Error` method of Go’s standard testing framework and the test wi
 fail. A failed test will not halt or otherwise interrupt any other tests
 currently running.
 
-## Reference API
+## TestCase Reference API
 
 `TestCase` offers several fields for developers to add to customize and validate
 each test, defined below. The source for `TestCase` can be viewed [here on
