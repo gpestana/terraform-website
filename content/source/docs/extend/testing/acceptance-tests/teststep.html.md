@@ -32,8 +32,8 @@ under test.
 ## Next Steps
 
 TestCases are a powerful way to test Terraform plugins using real configurations
-and verifying the expected results. In the next section [Best
-Practices](/docs/extend/testing/acceptance-tests/bestpractices.html) we’ll
-cover some best practice testing scenarios to expand on the simple checks above,
-and verify actual day-to-day usage and behavior. 
+and verifying the expected results. Checkout the [Best
+Practices](/docs/extend/testing/bestpractices.html) section to learn about some
+best practice testing scenarios to expand on the simple checks above, and verify
+actual day-to-day usage and behavior. 
 
