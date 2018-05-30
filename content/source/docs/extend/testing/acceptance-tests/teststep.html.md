@@ -13,9 +13,9 @@ description: |-
 ## Test Modes
 Terraform’s test framework facilitates two distinct modes of acceptance tests, *Lifecycle* and *Import*. 
 
-**Lifecycle** mode is the most common mode, and is used for testing plugins by providing one or more configuration files with the same logic as would be used when running `terraform apply`. 
+*Lifecycle* mode is the most common mode, and is used for testing plugins by providing one or more configuration files with the same logic as would be used when running `terraform apply`. 
 
-**Import** mode is used for testing resource functionality to import existing infrastructure into a Terraform statefile, using the same logic as would be used when running `terraform import`. 
+*Import* mode is used for testing resource functionality to import existing infrastructure into a Terraform statefile, using the same logic as would be used when running `terraform import`. 
 
 An acceptance test’s mode is implicitly determined by the fields provided in the `TestStep` definition. The applicable fields are defined below in the [TestStep Reference API][#teststep-reference-api]. 
 ## Steps
@@ -100,67 +100,28 @@ Terraform has several TestCheckFunc functions builtin for developers to use for 
 Most builtin functions accept `name`, `key`, and/or `value` fields, derived from the typical Terraform configuration stanzas:
 
 ```hcl
-resource "example_widget" "foo" {
+resource “example_widget” “foo” {
   active = true
 }
 ```
 
 Here the `name` represents the resource name in state (`example_widget.foo`), the `key` represents the attribute to check (`active`), and `value` represents the desired value to check against (`true`). Not all functions accept all three inputs.
-### TestCheckResourceAttrSet(name, key string)
 
-TestCheckResourceAttrSet ensures a value exists in state for the given name/key combination. It is useful when testing that computed values were set, when it is not possible to know ahead of time what the values will be.
+Below is a list of builtin check functions, with links to their corresponding documentation on godoc.org:
 
-Example:
+- [TestCheckResourceAttrSet(name, key string)](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckResourceAttrSet)  
+- [TestCheckModuleResourceAttrSet(mp []string, name string, key string)](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckModuleResourceAttrSet)  
+- [TestCheckResourceAttr(name, key, value string)](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckResourceAttr)  
+- [TestCheckModuleResourceAttr(mp []string, name string, key string, value string)](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckModuleResourceAttr)
+- [TestCheckNoResourceAttr(name, key string)](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckNoResourceAttr)  
+- [TestCheckModuleNoResourceAttr(mp []string, name string, key string)](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckModuleNoResourceAttr)  
+- [TestCheckResourceAttrPtr(name string, key string, value *string)](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckResourceAttrPtr)  
+- [TestCheckModuleResourceAttrPtr(mp []string, name string, key string, value *string)](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckModuleResourceAttrPtr)  
+- [TestCheckResourceAttrPair(nameFirst, keyFirst, nameSecond, keySecond string)](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckResourceAttrPair)  
+- [TestCheckModuleResourceAttrPair(mpFirst []string, nameFirst string, keyFirst string, mpSecond []string, nameSecond string, keySecond string)](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckModuleResourceAttrPair)  
+- [TestCheckOutput(name, value string)](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckOutput)  
 
-```go
-Steps: []resource.TestStep{
-  {
-    Config: testAccExampleResource(rName),
-    Check: resource.ComposeAggregateTestCheckFunc(
-        resource.TestCheckResourceAttrSet("example_widget.foo", "created_at"), // Computed
-    ),
-  },
-},
-```
 
-### TestCheckResourceAttr(name, key, value string)
-
-TestCheckResourceAttr checks the value for a given attribute. 
-
-Example:
-
-```go
-Steps: []resource.TestStep{
-  {
-    Config: testAccExampleResource(rName),
-    Check: resource.ComposeAggregateTestCheckFunc(
-      resource.TestCheckResourceAttrSet("example_widget.foo", "created_at"), // Computed
-      resource.TestCheckResourceAttr("example_widget.foo", "name", rName),
-      resource.TestCheckResourceAttr("example_widget.foo", "active", "true"),
-    ),
-  },
-},
-```
-
-### TestCheckNoResourceAttr(name, key, value string)
-
-TestCheckNoResourceAttr is an inversion of TestCheckResourceAttr, checking that NO value for the given key exists.
-
-Example:
-
-```go
-Steps: []resource.TestStep{
-  {
-    Config: testAccExampleResource(rName),
-    Check: resource.ComposeAggregateTestCheckFunc(
-      resource.TestCheckResourceAttr("example_widget.foo", "active", "true"),
-      // still active, should not have deleted_at date
-      resource.TestCheckNoResourceAttr("example_widget.foo", "deleted_at"), 
-    ),
-  },
-},
-
-```
 ## Custom check functions 
 
 The `Check` attribute of `TestStep` accepts any function of type [TestCheckFunc](https://godoc.org/github.com/hashicorp/terraform/helper/resource#TestCheckFunc). 
@@ -175,4 +136,3 @@ TestCases are a powerful way to test Terraform plugins using real configurations
 
 
 [1]: /docs/extend/testing/acceptance-testing/bestpractices.html
-
