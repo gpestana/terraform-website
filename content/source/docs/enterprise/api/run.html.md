@@ -8,20 +8,22 @@ sidebar_current: "docs-enterprise2-api-run"
 
 -> **Note**: These API endpoints are in beta and are subject to change.
 
-Performing a run on a new configuration is a multi step process.
+Performing a run on a new configuration is a multi-step process.
 
 1. [Create a configuration version on the workspace](./configuration-versions.html#create-a-configuration-version).
 2. [Upload configuration files to the configuration version](./configuration-versions.html#upload-configuration-files).
-3. [Create a Run on the workspace](#create-a-run); this is done automatically when a configuration file is uploaded.
-4. [Create and queue an apply on the run](#apply); if auto-apply is not enabled.
+3. [Create a run on the workspace](#create-a-run); this is done automatically when a configuration file is uploaded.
+4. [Create and queue an apply on the run](#apply-a-run); if auto-apply is not enabled.
 
-Alternately, you can create a run with a pre-existing configuration version, even one from another workspace. This is useful for promoting known good code from one workspace to another.
+Alternatively, you can create a run with a pre-existing configuration version, even one from another workspace. This is useful for promoting known good code from one workspace to another.
 
 ## Create a Run
 
 `POST /runs`
 
 A run performs a plan and apply, using a configuration version and the workspace’s current variables. You can specify a configuration version when creating a run; if you don’t provide one, the run defaults to the workspace’s most recently used version. (A configuration version is “used” when it is created or used for a run in this workspace.)
+
+-> **Note:** This endpoint cannot be accessed with [organization tokens](../users-teams-organizations/service-accounts.html#organization-service-accounts). You must access it with a [user token](../users-teams-organizations/users.html#api-tokens) or [team token](../users-teams-organizations/service-accounts.html#team-service-accounts).
 
 ### Request Body
 
@@ -40,7 +42,7 @@ Status  | Response                               | Reason
 --------|----------------------------------------|-------
 [200][] | [JSON API document][] (`type: "runs"`) | Successfully created a run
 [404][] | [JSON API error object][]              | Organization or workspace not found, or user unauthorized to perform action
-[422][] | [JSON API error object][]              | Validation errors
+[422][] | [JSON API error object][]              | Malformed request body (missing attributes, wrong types, etc.)
 
 [JSON API document]: https://www.terraform.io/docs/enterprise/api/index.html#json-api-documents
 [200]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/200
@@ -154,10 +156,13 @@ This endpoint queues the request to perform an apply; the apply might not happen
 
 This endpoint represents an action as opposed to a resource. As such, the endpoint does not return any object in the response body.
 
+-> **Note:** This endpoint cannot be accessed with [organization tokens](../users-teams-organizations/service-accounts.html#organization-service-accounts). You must access it with a [user token](../users-teams-organizations/users.html#api-tokens) or [team token](../users-teams-organizations/service-accounts.html#team-service-accounts).
+
+
 Status  | Response                  | Reason(s)
 --------|---------------------------|----------
-[202][] | none                      | Successfully queued a discard request.
-[409][] | [JSON API error object][] | Run was not paused for confirmation or priority; discard not allowed.
+[202][] | none                      | Successfully queued an apply request.
+[409][] | [JSON API error object][] | Run was not paused for confirmation; apply not allowed.
 
 [202]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202
 [409]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409
@@ -201,6 +206,19 @@ curl \
 Parameter      | Description
 ---------------|------------
 `workspace_id` | The workspace ID to list runs for.
+
+Status  | Response                                         | Reason
+--------|--------------------------------------------------|-------
+[200][] | Array of [JSON API document][]s (`type: "runs"`) | Successfully listed runs
+
+### Query Parameters
+
+This endpoint supports pagination [with standard URL query parameters](./index.html#query-parameters); remember to percent-encode `[` as `%5B` and `]` as `%5D` if your tooling doesn't automatically encode URLs.
+
+Parameter      | Description
+---------------|------------
+`page[number]` | **Optional.** If omitted, the endpoint will return the first page.
+`page[size]`   | **Optional.** If omitted, the endpoint will return 20 runs per page.
 
 ### Sample Request
 
@@ -262,7 +280,7 @@ curl \
         "self": "/api/v2/runs/run-bWSq4YeYpfrW4mx7"
       }
     },
-    ...
+    {...}
   ]
 }
 ```
@@ -280,6 +298,8 @@ The `discard` action can be used to skip any remaining work on runs that are pau
 This endpoint queues the request to perform a discard; the discard might not happen immediately. After discarding, the run is completed and later runs can proceed.
 
 This endpoint represents an action as opposed to a resource. As such, it does not return any object in the response body.
+
+-> **Note:** This endpoint cannot be accessed with [organization tokens](../users-teams-organizations/service-accounts.html#organization-service-accounts). You must access it with a [user token](../users-teams-organizations/users.html#api-tokens) or [team token](../users-teams-organizations/service-accounts.html#team-service-accounts).
 
 Status  | Response                  | Reason(s)
 --------|---------------------------|----------
@@ -329,6 +349,8 @@ The `cancel` action can be used to interrupt a run that is currently planning or
 This endpoint queues the request to perform a cancel; the cancel might not happen immediately. After canceling, the run is completed and later runs can proceed.
 
 This endpoint represents an action as opposed to a resource. As such, it does not return any object in the response body.
+
+-> **Note:** This endpoint cannot be accessed with [organization tokens](../users-teams-organizations/service-accounts.html#organization-service-accounts). You must access it with a [user token](../users-teams-organizations/users.html#api-tokens) or [team token](../users-teams-organizations/service-accounts.html#team-service-accounts).
 
 Status  | Response                  | Reason(s)
 --------|---------------------------|----------

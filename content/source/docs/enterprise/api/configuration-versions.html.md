@@ -18,6 +18,15 @@ A configuration version (`configuration-version`) is a resource used to referenc
 | --------------- | ---------------------------------------------------- |
 | `:workspace_id` | The id of the workspace to list configurations from. |
 
+### Query Parameters
+
+This endpoint supports pagination [with standard URL query parameters](./index.html#query-parameters); remember to percent-encode `[` as `%5B` and `]` as `%5D` if your tooling doesn't automatically encode URLs.
+
+Parameter      | Description
+---------------|------------
+`page[number]` | **Optional.** If omitted, the endpoint will return the first page.
+`page[size]`   | **Optional.** If omitted, the endpoint will return 20 configuration versions per page.
+
 ### Sample Request
 
 ```shell
@@ -122,12 +131,27 @@ curl \
 | --------------- | --------------------------------------------------------- |
 | `:workspace_id` | The workspace ID to create the new configuration version. |
 
+-> **Note:** This endpoint cannot be accessed with [organization tokens](../users-teams-organizations/service-accounts.html#organization-service-accounts). You must access it with a [user token](../users-teams-organizations/users.html#api-tokens) or [team token](../users-teams-organizations/service-accounts.html#team-service-accounts).
+
+### Request Body
+
+This POST endpoint requires a JSON object with the following properties as a request payload.
+
+Properties without a default value are required.
+
+Key path                          | Type    | Default | Description
+--------------------------------- | ------- | ------- | -----------
+`data.attributes.auto-queue-runs` | boolean | true    | When true, runs are queued automatically when the configuration version is uploaded.
+
 ### Sample Payload
 
 ```json
 {
   "data": {
-    "type": "configuration-versions"
+    "type": "configuration-versions",
+    "attributes": {
+      "auto-queue-runs": true
+    }
   }
 }
 ```
@@ -151,6 +175,7 @@ curl \
     "id": "cv-UYwHEakurukz85nW",
     "type": "configuration-versions",
     "attributes": {
+      "auto-queue-runs": true,
       "error": null,
       "error-message": null,
       "source": "tfe-api",
@@ -175,7 +200,7 @@ curl \
 
 ## Upload Configuration Files
 
--> **Note**: Uploading a configuration file automatically creates a run and associates it with this configuration-version. Therefore it is unnecessary to [create a run on the workspace](./run.html#create-a-run) if a new file is uploaded.
+-> **Note**: If `auto-queue-runs` was either not provided or set to `true` during creation of the configuration version, a run using this configuration version will be automatically queued on the workspace. If `auto-queue-runs` was set to `false` explicitly, then it is necessary to [create a run on the workspace](./run.html#create-a-run) manually after the configuration version is uploaded.
 
 `PUT https://archivist.terraform.io/v1/object/<UNIQUE OBJECT ID>`
 
