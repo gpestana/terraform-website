@@ -7,13 +7,15 @@ description: |-
   to extend Terraform's core offering.
 ---
 
-# Acceptance Tests Part 2: TestStep
+# Acceptance Tests: TestSteps
+
 `TestStep`s represent the application of an actual Terraform configuration file
 to a given state. Each step requires a configuration as input and provides
 developers several means of validating the behavior of the specific resource
 under test. 
 
 ## Test Modes
+
 Terraform’s test framework facilitates two distinct modes of acceptance tests,
 *Lifecycle* and *Import*. 
 
@@ -73,10 +75,11 @@ func TestAccExampleWidget_basic(t *testing.T) {
 In the above example each `TestCase` invokes a function to retrieve it’s desired
 configuration, based on a randomized name provided, however an in-line string or
 constant string would work as well, so long as they contain valid Terraform
-configuration for the plugin or resource under test. This pattern of a basic
-configuration followed by a second, modified configuration to test update
-functionality is a common pattern and covered in our [Best Practices][1]
-section.
+configuration for the plugin or resource under test. This pattern of first
+applying and checking a basic configuration, followed by applying a modified
+configuration with updated or additional checks is a common pattern used to test
+update functionality.
+
 
 ## Check Functions
 

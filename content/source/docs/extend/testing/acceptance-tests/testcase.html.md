@@ -7,7 +7,7 @@ description: |-
   to extend Terraform's core offering.
 ---
 
-# Acceptance Tests Part 1: TestCase
+# Acceptance Tests: TestCases
 
 Acceptance tests are expressed in terms of **Test Cases**, each using one or
 more Terraform configurations designed to create a set of resources under test,
@@ -299,8 +299,8 @@ func TestAccExampleWidget_basic(t *testing.T) {
 `TestCases` are used to verify the features of a given part of a plugin. Each
 case should represent a scenario of normal usage of the plugin, from simple
 creation to creating, adding, and removing specific properties. In the next
-section, we’ll detail `Steps` portion of `TestCase` and see how to create these
-scenarios by iterating on Terraform configurations. 
+Section [`TestSteps`][2], we’ll detail `Steps` portion of `TestCase` and see how
+to create these scenarios by iterating on Terraform configurations. 
 
 [1]: https://github.com/hashicorp/terraform/blob/0cc9e050ecd4a46ba6448758c2edc0b29bef5695/helper/resource/testing.go#L195-L247
 [2]: /docs/extend/testing/acceptance-tests/teststep.html
