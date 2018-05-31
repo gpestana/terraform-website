@@ -21,7 +21,7 @@ Here’s an example acceptance test. Here the Provider is named `Example`, and t
 Resource under test is `Thing`. The parts of this test are explained below the
 example.
 
-```golang
+```go
 package example
 
 // example.Widget represents a concrete Go type that represents an API resource
@@ -263,7 +263,7 @@ two steps, to verify the resource can be created and subsequently updated,
 depending on the properties of the resource. In general, simply create/destroy
 tests will only need one step. 
 
-`TestStep`s are covered in detail in [Part 2](/docs/extend/testing/acceptance-tests/teststep.html) of this section.
+`TestStep`s are covered in detail in [the next section, `TestSteps`](/docs/extend/testing/acceptance-tests/teststep.html).
 
 **Example usage:**
 

@@ -73,5 +73,5 @@ Terraform relies heavily on acceptance tests to ensure we keep our promise of
 helping users  safely and predictably create, change, and improve
 infrastructure. In our next section we detail how to create **Test Cases**,
 individual acceptance tests using Terraform’s testing framework, in order to
-build and verify real infrastructure. [Proceed to Part 1: Test
+build and verify real infrastructure. [Proceed to Test
 Cases](/docs/extend/testing/acceptance-tests/testcase.html)
