@@ -9,10 +9,12 @@ description: |-
 
 # Acceptance Tests: TestCases
 
+# Acceptance Tests : TestCase
+
 Acceptance tests are expressed in terms of **Test Cases**, each using one or
 more Terraform configurations designed to create a set of resources under test,
 and then verify the actual infrastructure created. Terraform’s `resource`
-package offers a metho `Test()`, accepting two parameters and acting as the
+package offers a method `Test()`, accepting two parameters and acting as the
 entry point to Terraform’s acceptance test framework. The first parameter is the
 standard [*testing.T struct from Golang’s Testing package][3], and the second is
 [TestCase][1], a Go struct that developers use to setup the acceptance tests. 
@@ -79,7 +81,6 @@ func TestAccExampleWidget_basic(t *testing.T) {
   }
 }
 ```
-
 
 The majority of acceptance tests will only invoke `resource.Test()` and exit. If
 at any point this method encounters an error, either in executing the provided
