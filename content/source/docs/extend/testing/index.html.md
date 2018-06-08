@@ -49,12 +49,15 @@ using a common make task:
 $ make testacc 
 ```
 
+See [Acceptance Testing](acceptance-tests/index.html) to learn more. 
+
 ## Unit Tests
 
 Testing plugin code in small, isolated units is distinct from Acceptance Tests,
-and does not requires network connections. Unit tests are commonly used for
+and does not require network connections. Unit tests are commonly used for
 testing helper methods that expand or flatten API response data into data
-structures for storage into state by Terraform. 
+structures for storage into state by Terraform. This section covers the
+specifics of writing Unit Tests for Terraform Plugin code.
 
 For a given plugin, Unit Tests can be run from the root of the project by using
 a common make task:
@@ -63,14 +66,7 @@ a common make task:
 $ make test
 ```
 
-## Testing API
-
-What is testing api section
-
-## Test Patterns
-
-What is test patterns
-
+See [Unit Testing](unit-testing.html) to learn more. 
 
 ## Next Steps
 
